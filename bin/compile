@@ -108,13 +108,12 @@ fi
 # which describe how this needs to be named.
 export CARGO_TARGET_DIR="$CACHE_DIR/target"
 
-compile_buildpack_dir=$(cd $(dirname $0); cd ..; pwd)
-compile_buildpack_bin=$compile_buildpack_dir/bin
+BP_DIR=$(cd $(dirname $0); cd ..; pwd)
 
 # Load convenience functions like status(), echo(), and indent()
-source $compile_buildpack_dir/lib/common.sh
+source ${BP_DIR}/lib/common.sh
 # Load caching functions
-source ${compile_buildpack_dir}/lib/cache.sh
+source ${BP_DIR}/lib/cache.sh
 
 # ----------------------------------------------------------------------------- #
 # Download any application specific system dependencies specified               #
