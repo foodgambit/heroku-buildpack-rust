@@ -108,13 +108,6 @@ fi
 # which describe how this needs to be named.
 export CARGO_TARGET_DIR="$CACHE_DIR/target"
 
-BP_DIR=$(cd $(dirname $0); cd ..; pwd)
-
-# Load convenience functions like status(), echo(), and indent()
-source ${BP_DIR}/lib/common.sh
-# Load caching functions
-source ${BP_DIR}/lib/cache.sh
-
 # ----------------------------------------------------------------------------- #
 # Download any application specific system dependencies specified               #
 # in Aptfile (if present) using apt-get                                         #
@@ -124,7 +117,7 @@ if [ -f $BUILD_DIR/Aptfile ]; then
   for PACKAGE in $(cat $BUILD_DIR/Aptfile | sed $'s/\r$//'); do
     status "Entry found in Aptfile for $PACKAGE."
     packages=($PACKAGE)
-    download_packages "${packages[@]}"
+    apt-get install "${packages[@]}"
   done
 else
   status "No Aptfile found."
