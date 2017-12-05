@@ -113,14 +113,14 @@ export CARGO_TARGET_DIR="$CACHE_DIR/target"
 # in Aptfile (if present) using apt-get                                         #
 # ----------------------------------------------------------------------------- #
 if [ -f $BUILD_DIR/Aptfile ]; then
-  status "Aptfile found."
+  echo "Aptfile found."
   for PACKAGE in $(cat $BUILD_DIR/Aptfile | sed $'s/\r$//'); do
     status "Entry found in Aptfile for $PACKAGE."
     packages=($PACKAGE)
     apt-get install "${packages[@]}"
   done
 else
-  status "No Aptfile found."
+  echo "No Aptfile found."
 fi
 
 if [ $RUST_SKIP_BUILD -ne 1 ]; then
