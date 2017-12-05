@@ -112,11 +112,13 @@ export CARGO_TARGET_DIR="$CACHE_DIR/target"
 # Download any application specific system dependencies specified               #
 # in Aptfile (if present) using apt-get                                         #
 # ----------------------------------------------------------------------------- #
+apt-get update
 if [ -f $BUILD_DIR/Aptfile ]; then
   echo "Aptfile found."
   for PACKAGE in $(cat $BUILD_DIR/Aptfile | sed $'s/\r$//'); do
     status "Entry found in Aptfile for $PACKAGE."
     packages=($PACKAGE)
+    echo "Installing package ${packages[@]}"
     apt-get install "${packages[@]}"
   done
 else
